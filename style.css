@@ -1,0 +1,212 @@
+:root {
+    --bg-color: #000000;
+    --metal-base: #ffffff;
+    --metal-bright: #ffffff;
+    --metal-dark: #00eeff;
+    --gold: #dedb00;
+    --gold-dark: #28f312;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    color: #fff;
+}
+
+.instructions {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.instructions h1 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: var(--metal-bright);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.instructions p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Contentor Principal da Câmara 3D */
+.scene {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    pointer-events: auto;
+}
+
+.scene:active {
+    cursor: grabbing;
+}
+
+/* O Objeto Cadeado Global */
+.lock-container {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    transform-style: preserve-3d;
+    transform: rotateX(-15deg) rotateY(-30deg);
+    transition: transform 0.1s ease-out;
+    pointer-events: cubic-bezieer(0,0,0,0);
+}
+
+/* MANILHA / ARCO (3D Haste) */
+.shackle {
+    position: absolute;
+    top: -90px;
+    left: 55px;
+    width: 190px;
+    height: 140px;
+    border: 25px solid #95a5a6;
+    border-bottom: none;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    transform-style: preserve-3d;
+    transform: translateZ(-25px);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: inset 0 5px 15px rgba(255,255,255,0.4);
+}
+
+/* Estado Desbloqueado da Manilha */
+.lock-container.unlocked .shackle {
+    transform: translateZ(-25px) translateY(-45px) rotateY(25deg);
+    border-color: #ecf0f1;
+}
+
+/* CORPO CILÍNDRICO PRINCIPAL */
+.cylinder-body {
+    position: absolute;
+    width: 300px;
+    height: 150px;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Tampas laterais do cilindro para fechar o volume 3D */
+.cylinder-end {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, var(--metal-bright) 0%, var(--metal-dark) 100%);
+    border-radius: 50%;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+.cylinder-end.left {
+    left: -10px;
+    transform: rotateY(-90deg) translateZ(50px);
+}
+.cylinder-end.right {
+    right: -10px;
+    transform: rotateY(90deg) translateZ(250px);
+}
+
+/* ROTORES (Os 4 discos de combinação) */
+.rotors-wrapper {
+    display: flex;
+    gap: 8px;
+    transform-style: preserve-3d;
+    z-index: 2;
+}
+
+.rotor-track {
+    position: relative;
+    width: 50px;
+    height: 110px;
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* Cada uma das 10 faces do rotor (0-9) para formar um decágono regular 3D */
+.rotor-face {
+    position: absolute;
+    width: 50px;
+    height: 36px;
+    left: 0;
+    top: 37px;
+    background: linear-gradient(to bottom, #2c3e50, #1a252f, #2c3e50);
+    border: 1px solid #044992;
+    border-left: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+}
+
+/* Alinhamento estrito das 10 faces no espaço circular */
+.rotor-face:nth-child(1)  { transform: rotateX(0deg) translateZ(55px); }
+.rotor-face:nth-child(2)  { transform: rotateX(36deg) translateZ(55px); }
+.rotor-face:nth-child(3)  { transform: rotateX(72deg) translateZ(55px); }
+.rotor-face:nth-child(4)  { transform: rotateX(108deg) translateZ(55px); }
+.rotor-face:nth-child(5)  { transform: rotateX(144deg) translateZ(55px); }
+.rotor-face:nth-child(6)  { transform: rotateX(180deg) translateZ(55px); }
+.rotor-face:nth-child(7)  { transform: rotateX(216deg) translateZ(55px); }
+.rotor-face:nth-child(8)  { transform: rotateX(252deg) translateZ(55px); }
+.rotor-face:nth-child(9)  { transform: rotateX(288deg) translateZ(55px); }
+.rotor-face:nth-child(10) { transform: rotateX(324deg) translateZ(55px); }
+
+/* Indicador laser/linha visual central de validação */
+.indicator-line {
+    position: absolute;
+    width: 250px;
+    height: 4px;
+    background-color: #ff3838;
+    box-shadow: 0 0 10px #ff3838;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%) translateZ(62px);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0.75;
+}
+
+/* Feedback visual de sucesso */
+.status-panel {
+    position: absolute;
+    bottom: 40px;
+    padding: 12px 30px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.status-panel.unlocked {
+    color: #2ecc71;
+    border-color: #2ecc71;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+    transform: scale(1.1);
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trava Digital Cilíndrica 3D</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="instructions">
+        <h1>Trava Mecânica 3D</h1>
+        <p>Arraste o ecrã para rodar a câmara | Clique nos rotores para decifrar</p>
+    </div>
+
+    <div class="scene" id="scene">
+        <div class="lock-container" id="lock">
+            <!-- Arco do Cadeado -->
+            <div class="shackle"></div>
+            
+            <!-- Corpo Cilíndrico -->
+            <div class="cylinder-body">
+                <div class="cylinder-end left"></div>
+                
+                <!-- Linha Guia Vermelha -->
+                <div class="indicator-line"></div>
+                
+                <!-- Os 4 Rotores Mecânicos -->
+                <div class="rotors-wrapper">
+                    <!-- Rotor 1 -->
+                    <div class="rotor-track" data-index="0" onclick="rotateRotor(0)">
+                        <div class="rotor-face">0</div><div class="rotor-face">9</div><div class="rotor-face">8</div><div class="rotor-face">7</div><div class="rotor-face">6</div>
+                        <div class="rotor-face">5</div><div class="rotor-face">4</div><div class="rotor-face">3</div><div class="rotor-face">2</div><div class="rotor-face">1</div>
+                    </div>
+                    <!-- Rotor 2 -->
+                    <div class="rotor-track" data-index="1" onclick="rotateRotor(1)">
+                        <div class="rotor-face">0</div><div class="rotor-face">9</div><div class="rotor-face">8</div><div class="rotor-face">7</div><div class="rotor-face">6</div>
+                        <div class="rotor-face">5</div><div class="rotor-face">4</div><div class="rotor-face">3</div><div class="rotor-face">2</div><div class="rotor-face">1</div>
+                    </div>
+                    <!-- Rotor 3 -->
+                    <div class="rotor-track" data-index="2" onclick="rotateRotor(2)">
+                        <div class="rotor-face">0</div><div class="rotor-face">9</div><div class="rotor-face">8</div><div class="rotor-face">7</div><div class="rotor-face">6</div>
+                        <div class="rotor-face">5</div><div class="rotor-face">4</div><div class="rotor-face">3</div><div class="rotor-face">2</div><div class="rotor-face">1</div>
+                    </div>
+                    <!-- Rotor 4 -->
+                    <div class="rotor-track" data-index="3" onclick="rotateRotor(3)">
+                        <div class="rotor-face">0</div><div class="rotor-face">9</div><div class="rotor-face">8</div><div class="rotor-face">7</div><div class="rotor-face">6</div>
+                        <div class="rotor-face">5</div><div class="rotor-face">4</div><div class="rotor-face">3</div><div class="rotor-face">2</div><div class="rotor-face">1</div>
+                    </div>
+                </div>
+
+                <div class="cylinder-end right"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painel de Status -->
+    <div class="status-panel" id="status">🔒 BLOQUEADO</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
